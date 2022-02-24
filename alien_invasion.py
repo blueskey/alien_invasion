@@ -32,7 +32,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
 
     def _check_events(self):
@@ -62,7 +62,7 @@ class AlienInvasion:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
-        elif event.key == pygame.K_q:
+        elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
@@ -78,6 +78,15 @@ class AlienInvasion:
     def _fire_bullet(self):
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
+
+
+    def _update_bullets(self):
+        self.bullets.update()
+        # 删除出屏幕的子弹，以免占内存
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
 
 
 if __name__ == '__main__':
