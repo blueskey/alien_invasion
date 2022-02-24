@@ -35,9 +35,9 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
-                self._check_keydown_events(self, event)
+                self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                self._check_keyup_events(self, event)
+                self._check_keyup_events(event)
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
